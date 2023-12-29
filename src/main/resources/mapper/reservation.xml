@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tenco.team_two_flight_ticket.reservation.ReservationRepository">
+    <select id="getMyTravel" resultType="com.tenco.team_two_flight_ticket.reservation.ReservationResponse$GetMyTravelDTO">
+        SELECT r.id as id, is_payed, user_id, r.created_at as created_at, payment_deadline
+        , reservation_num, status_enum, airline, arrival_city, departure_airport, arrival_airport , departure_city
+        , flight_name, departure_time, arrival_time, icity.name as korean_arrival_city, iairline.name as korean_airline
+        , de_airport.name as korean_departure_airport
+        , CASE WHEN ar_airport.city_name = ar_airport.name
+        THEN ar_airport.name
+        ELSE concat(ar_airport.city_name,'/',ar_airport.name) 
+        END as korean_arrival_airport
+        FROM reservation_tb as r
+        LEFT JOIN ticket_tb as t
+        ON r.id = t.reservation_id
+        LEFT JOIN iata_city_tb as icity
+        ON icity.code = t.arrival_city
+        LEFT JOIN iata_airline_tb as iairline
+        ON iairline.code = t.airline
+        LEFT JOIN iata_airport_tb as de_airport
+        ON de_airport.code = t.departure_airport
+        LEFT JOIN iata_airport_tb as ar_airport
+        ON ar_airport.code = t.arrival_airport
+        WHERE user_id = #{userId}
+        AND status_enum = #{statusEnum}
+        AND departure_time like concat('%',#{year},'%')
+        <if test="sort == 'true'">
+            AND is_payed = true
+        </if>
+        <if test="sort == 'false'">
+            AND is_payed = false
+        </if>
+		GROUP BY reservation_num
+        ORDER BY departure_time
+    </select>
+
+    <select id="getMyTripCount" resultType="int">
+        SELECT count(distinct reservation_id)
+        FROM reservation_tb as r
+        JOIN ticket_tb as t
+        ON r.id = t.reservation_id
+        WHERE user_id = #{userId}
+        AND status_enum = #{statusEnum}
+        AND departure_time like concat('%',#{year},'%')
+        <if test="sort == 'true'">
+            AND is_payed = true
+        </if>
+        <if test="sort == 'false'">
+            AND is_payed = false
+        </if>
+    </select>
+
+    <insert id="insertR">
+        insert into reservation_tb(user_id, res_name, email, phone_num, reservation_num, status_enum, passenger_amount,
+                                   payment_deadline, reservation_price, created_at)
+        values (#{userId}, #{resName}, #{email}, #{phoneNum}, #{reservationNum}, '예정', #{passengerAmount}, #{paymentDeadline}, 1000000, now())
+    </insert>
+
+    <select id="getMyTripDetail" resultType="com.tenco.team_two_flight_ticket.reservation.ReservationResponse$GetMyTripDetailDTO">
+   		SELECT reservation_num, is_payed, status_enum ,payment_deadline ,res_name, real_name , first_name, last_name , r.phone_num , airline, departure_city, arrival_city
+   		,departure_time, arrival_time, seat_type, is_one_way, iairline.name as korean_airline
+        , de_airport.name as korean_departure_airport, ar_airport.name as korean_arrival_airport
+		FROM reservation_tb as r
+		JOIN ticket_tb as t
+		ON r.id = t.reservation_id
+		JOIN passenger_tb p
+		ON t.id = p.id
+		JOIN user_tb u
+		ON u.id = r.user_id
+		LEFT JOIN iata_city_tb as icity
+        ON icity.code = t.arrival_city
+        LEFT JOIN iata_airline_tb as iairline
+        ON iairline.code = t.airline
+        LEFT JOIN iata_airport_tb as de_airport
+        ON de_airport.code = t.departure_airport
+        LEFT JOIN iata_airport_tb as ar_airport
+        ON ar_airport.code = t.arrival_airport
+		WHERE reservation_num = #{reservationNum}
+		AND r.user_id = #{userId}
+		LIMIT 1
+   	</select>
+
+
+	<select id="reservationPayment" resultMap="reservationPaymentResultMap">
+
+		SELECT ub.username, rb.reservation_num, rb.passenger_amount, tb.taxes, cb.discounting_price, pb.first_name, pb.last_name, tb.total_price, tb.departure_time
+		FROM ticket_tb as tb
+				 left join reservation_tb as rb
+						   on tb.reservation_id = rb.id
+				 left join passenger_tb as pb
+						   on rb.id = pb.reservation_id
+				 left join user_tb as ub
+						   on ub.id = rb.user_id
+				 left join hascoupon_tb as hb
+						   on hb.user_id = ub.id
+				 left join coupon_tb as cb
+						   on cb.id = hb.coupon_id
+		where tb.id = #{userId}
+    </select>
+
+	<resultMap id="reservationPaymentResultMap" type="com.tenco.team_two_flight_ticket.reservation.ReservationResponse$ReservationPaymentDTO">
+		<result property="username" column="username"/>
+		<result property="reservationNum" column="reservation_num"/>
+		<result property="passengerAmount" column="passenger_amount"/>
+		<result property="taxes" column="taxes"/>
+		<result property="couponDiscountingPrice" column="discounting_price"/>
+		<result property="passengerFirstName" column="first_name"/>
+		<result property="passengerLastName" column="last_name"/>
+		<result property="totalPrice" column="total_price"/>
+		<result property="departureTime" column="departure_time"/>
+	</resultMap>
+   	<update id="cancelReservation">
+   		update reservation_tb
+   		set status_enum = '취소'
+   		where reservation_num = #{reservationNum}
+   	</update>
+
+    <select id="getPayedInfo"
+    resultType="com.tenco.team_two_flight_ticket.reservation.ReservationResponse$GetPayedInfoDTO">
+    	SELECT first_name, last_name, passenger_type, gender, birth_date, air_fare
+    		  , fuel_surcharge, taxes, ticketing_fee, total_price, is_payed
+    	FROM reservation_tb as r
+    	LEFT JOIN ticket_tb as t
+    	ON r.id = t.reservation_id
+    	LEFT JOIN passenger_tb as p
+    	ON r.id = p.reservation_id
+    	WHERE reservation_num = #{reservationNum}
+    	and p.id = t.id
+    </select>
+
+    <select id="findByReservationNum" resultType="com.tenco.team_two_flight_ticket.reservation.Reservation">
+        SELECT *
+        FROM reservation_tb
+        WHERE reservation_num = #{reservationNum}
+    </select>
+    
+    <update id="setLastTrip">
+    	UPDATE reservation_tb
+		SET status_enum = '지난'
+		WHERE status_enum = '예정'
+    	AND id IN (
+    	SELECT reservation_id 
+    	FROM ticket_tb 
+    	WHERE departure_time &lt; NOW());
+    </update>
+    
+    <update id="setCancelTrip">
+    	UPDATE reservation_tb
+		SET status_enum = '취소'
+		WHERE status_enum = '예정'
+    	AND id IN (
+    	SELECT reservation_id 
+    	FROM ticket_tb 
+    	WHERE payment_deadline &lt; NOW());
+    </update>
+    
+    <select id="getMyTripDepartureYear" resultType="com.tenco.team_two_flight_ticket.reservation.ReservationResponse$GetMyTripYearDTO">
+    	SELECT ifnull(left(min(departure_time),4),year(now())) as min_yaer, ifnull(left(max(departure_time),4),year(now()))as max_year 
+    	FROM reservation_tb as r
+		JOIN ticket_tb as t
+		ON r.id = t.reservation_id
+		WHERE user_id = #{userId}
+		AND status_enum = #{statusEnum}
+    </select>
+    <select id="getDepartureTimeByResId" resultType="string">
+        select tt.departure_time
+        from reservation_tb rt
+                 left join ticket_tb tt
+                           on rt.id = tt.reservation_id
+        where rt.id=#{reservationId}
+    </select>
+    <update id="updateReservationToTrue">
+        update reservation_tb
+        set is_payed = true
+        where id = #{reservationId}
+    </update>
+    
+    
+
+</mapper>

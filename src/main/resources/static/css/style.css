@@ -1,0 +1,147 @@
+@import url(reset.css);
+@import url(mk_style.css);
+@import url(ss_style.css);
+@import url(ej_style.css);
+
+/* commmon */
+:root {
+    --primary_01: #71C1EE;
+    --primary_02: #378AD7;
+    --admin_01: #1E6289;
+    --admin_02: #CDDEE8;
+    --smooth: #40D7BC;
+    --cancle: #ED5342;
+    --cancle_bg : #FBF1EF;
+    --before_pay_bg : #FFF8E1;
+    --before_pay : #F78B14;
+    --complete : #F8F9FA;
+    --basic_03: #333;
+    --basic_05: #555;
+    --basic_07: #777;
+    --basic_09: #999;
+    --form: #D3D8DE;
+    --line: #F0F0F0;
+    --box_bg:#F5F6F7;
+    --basic_wh: #fff;
+    --basic_bl: #000;
+}
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.wrap {
+    width: 100%;
+    height: 100%;
+}
+html,body {
+    width: 100%;
+    height: 100%;
+}
+/*header*/
+header {
+    border-bottom: 1px solid var(--line);
+    position: fixed;
+    width: 100%;
+    background-color: var(--basic_wh);
+    z-index: 2;
+}
+
+header .search {
+    width: 40%;
+}
+.header_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header_menu {
+    display: flex;
+}
+.header_menu li a {
+    padding: 0 15px;
+    position: relative;
+}
+.header_menu li > a::after {
+    content: "";
+    top: 0;
+    width: 1px;
+    height: 16px;
+    background-color: var(--basic_09);
+    position: absolute;
+    right: 0;
+}
+
+.header_menu li:last-child > a::after {
+    content: "";
+    top: 0;
+    width: 0;
+    right: 0;
+}
+.nav-link:focus, .nav-link:hover {
+    color: var(--primary_02);
+    font-weight: bold;
+}
+.nav_bg {
+    background: url("../images/nav-bg.jpg") no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 300px;
+    width: 100%;
+}
+main {
+    padding: 113px 0px 167px 0px;
+}
+.custom-popover {
+  --bs-popover-max-width: 600px;
+  --bs-popover-border-color: var(--line);
+  --bs-popover-header-bg: var(--bd-violet-bg);
+  --bs-popover-header-color: var(--basic_09);
+  --bs-popover-body-padding-x: 8rem;
+  --bs-popover-body-padding-y: 10rem;
+}
+/*header*/
+
+
+/*footer*/
+
+footer {
+    background-color: var(--box_bg);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 165px;
+    z-index:111;
+    }
+.footer_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+footer ul li {
+    line-height: 1.2;
+}
+footer ul li:last-child {
+    padding-top: 10px;
+}
+footer .copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer_text {
+    position: relative;
+    padding: 50px 0;
+}
+
+/* 운임 규정 모달 */
+.fare_modal_btn{
+    background-color: var(--basic_03);
+    color: var(--basic_wh);
+    width: 120px;
+}
+
+.agreeMenu {
+    max-height: 700px; /* 원하는 높이로 설정하세요 */
+    overflow-y: auto;
+    line-height: 1.5;
+}

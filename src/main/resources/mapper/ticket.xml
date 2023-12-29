@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+        namespace="com.tenco.team_two_flight_ticket.ticket.TicketRepository">
+
+    <select id="getCities" resultType="com.tenco.team_two_flight_ticket._middle._entity.City">
+        select * from city_tb where country_name = #{region}
+    </select>
+
+    <select id="getCity" resultType="string">
+        select city_name from city_tb where city_code = #{code}
+    </select>
+
+    <select id="getCountryName" resultType="string">
+        select distinct(country_name) from city_tb
+    </select>
+
+    <select id="findByTicketJoinReservation" resultType="com.tenco.team_two_flight_ticket.ticket.Ticket">
+        SELECT departure_airport
+        FROM TICKET_TB as tb
+                 left join reservation_tb as rb
+                           on tb.id = rb.id
+                 left join user_tb as ub
+                           on ub.id = tb.id
+        where ub.id = #{userId};
+    </select>
+
+    <select id="findUserDestination" resultType="string">
+        select name
+        from iata_city_tb
+        where code = (select tt.arrival_city
+            from reservation_tb rt
+                     join user_tb ut on ut.id = rt.user_id
+                     join ticket_tb tt on tt.reservation_id = rt.id
+            where status_enum = '예정' and ut.id = #{userId} limit 1)
+    </select>
+
+    <select id="getTicketDate" resultType="com.tenco.team_two_flight_ticket.ticket.TicketResponse$GetTicketDateDTO">
+		select departure_time, dc.city_name as departure_city, ac.city_name as arrival_city, reservation_num
+		from ticket_tb as t
+		join reservation_tb as r
+		on t.reservation_id = r.id
+        join city_tb as dc
+        on t.departure_city = dc.city_code
+        join city_tb as ac
+        on t.arrival_city = ac.city_code
+		where status_enum = '예정'
+		and r.user_id = #{userId}
+        order by departure_time limit 1;
+	</select>
+
+    <select id="findByReservationId" resultType="com.tenco.team_two_flight_ticket.ticket.Ticket">
+        select *
+        from ticket_tb
+        where reservation_id = #{reservationDTO.getId()}
+    </select>
+
+    <insert id="insertT">
+        insert into ticket_tb(reservation_id, air_fare, fuel_surcharge, taxes, ticketing_fee, total_price, airline,
+                              flight_name, departure_city, arrival_city, departure_time, arrival_time,
+                              departure_airport, arrival_airport, seat_type, is_one_way, is_non_stop, baggage_allowance,
+                              created_at)
+        values (#{reservationId}, #{airFare}, #{fuelSurcharge}, #{taxes}, #{ticketingFee}, #{totalPrice}, #{airline}, #{flightName},
+                #{departureCity}, #{arrivalCity}, #{departureTime}, #{arrivalTime}, #{departureAirport}, #{arrivalAirport}, #{seatType}, #{isOneWay}, #{isNonStop},
+                #{baggageAllowance}, now())
+    </insert>
+    
+    <select id="getCitiesFromKeyword" resultType="com.tenco.team_two_flight_ticket._middle._entity.City">
+    	select * from city_tb
+    	where country_name like concat('%',#{keyword},'%')
+    	or city_name like concat('%',#{keyword},'%')
+    	or city_code like concat('%',#{keyword},'%')
+    </select>
+    
+	<select id="getKoreanCity" resultType="com.tenco.team_two_flight_ticket._middle._entity.City">
+		select * from city_tb
+		where country_name = '대한민국'
+	</select>
+	
+	<select id="findDepartureAirport" resultType="String">
+		SELECT departure_city
+		FROM ticket_tb t
+		JOIN reservation_tb r
+		ON t.reservation_id = r.id
+		WHERE user_id = #{id}
+		AND status_enum = '예정'
+		ORDER BY departure_time LIMIT 1;
+	</select>
+	
+    
+    
+</mapper>

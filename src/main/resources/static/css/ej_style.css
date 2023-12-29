@@ -1,0 +1,1633 @@
+/*flight_ticket_page 항공권 예매 페이지*/
+
+#flight_ticket_page .nav_bg .nav_container {
+    height: 100%;
+}
+
+.flight_ticket_box {
+    background-color: var(--basic_wh);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -35%);
+    border-radius: 0 10px 10px 10px;
+    z-index: 11;
+}
+
+.flight_ticket_title {
+    position: absolute;
+    top: -42px;
+    border-radius: 10px 10px 0 0;
+    background-color: var(--primary_02);
+    color: var(--basic_wh);
+}
+
+.flight_ticket_title h4 {
+    padding: 10px 30px;
+}
+
+.flight_data_txt {
+    color: var(--basic_07);
+}
+
+/* 출발지& 도착지 */
+.from_to_form_box {
+    padding: 30px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.round_trip_one_way {
+    display: flex;
+}
+
+.round_trip_one_way > li {
+    padding-right: 12px;
+    font-weight: bold;
+}
+
+/*.round_trip_one_way .distance_form_btn {*/
+/*    color: var(--primary_02);*/
+/*}*/
+.distance_active {
+    color: var(--primary_02);
+}
+
+.trip_one_way {
+    display: none;
+}
+
+.form_to_area {
+    display: flex;
+    align-items: end;
+    padding: 15px 0;
+}
+
+.from_to_form {
+    position: relative;
+}
+
+.from_to_box {
+    position: relative;
+}
+
+.from_to_select {
+    display: flex;
+    align-items: center;
+}
+
+.from_to_modal_btn {
+    position: relative;
+    cursor: pointer;
+    border: none;
+    padding: 0 15px;
+    border-radius: 5px;
+}
+
+.from_to_select .from_to_modal_btn:nth-child(1) {
+    padding: 0 16px 0 0;
+}
+
+.from_to_icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+}
+
+.from_to_modal_btn span {
+    display: block;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.from_to_modal_btn span:first-child {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.from_to_modal_btn span:nth-child(2) {
+    font-size: 14px;
+}
+
+/* 항공권 출발지 & 도착지 모달 */
+.from_to_modal .check_btn,
+.passenger_seat_modal .check_btn {
+    margin-top: 24px;
+    width: 100%;
+}
+
+.from_to_modal {
+    display: none;
+    position: absolute;
+    background-color: var(--basic_wh);
+    padding: 16px;
+    border-radius: 10px;
+    z-index: 11;
+    width: 500px;
+    top: 105%;
+    border: 1px solid var(--line);
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.from_to_search {
+    margin-bottom: 10px;
+}
+
+.regions_cities_box {
+    display: flex;
+    border: 1px;
+    border: 1px solid var(--form);
+    border-radius: 5px;
+}
+
+.regions {
+    background-color: var(--basic_wh);
+    text-align: center;
+    width: 150px;
+    height: 100%;
+    background-color: var(--box_bg);
+}
+
+.regions ul {
+    border-bottom: 1px solid var(--line);
+}
+
+.regions ul:last-child {
+    border-bottom: 0;
+}
+
+.regions ul:first-child > li:first-child {
+    padding: 0;
+}
+
+.regions h3 {
+    padding: 10px;
+}
+
+.regions .com_box {
+    background-color: var(--line);
+}
+
+.regions_menu li a {
+    display: inline-block;
+    width: 100%;
+    padding: 7px 0;
+}
+
+.regions_menu li a:active {
+    background-color: var(--primary_02);
+    border-radius: 5px;
+    color: var(--basic_wh);
+}
+
+.regions_cities_box .tab_active {
+    display: block;
+}
+
+.regions_list_item {
+    display: none;
+}
+
+.cities {
+    background-color: var(--basic_wh);
+    border-radius: 5px;
+    padding: 5px 40px;
+    text-align: left;
+    height: 385px;
+    overflow-y: scroll;
+}
+
+.cities_list li {
+    display: inline-block;
+    width: 100%;
+}
+
+.cities_list li.local_item button {
+    padding: 5px;
+}
+
+.local_item button:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--primary_02);
+}
+
+.local_item button:active {
+    background-color: var(--primary_01);
+}
+
+.to_local_code,
+.from_local_code {
+    position: relative;
+    width: 40px;
+    display: inline-block;
+}
+
+.to_local_airport,
+.from_local_airport {
+    padding-left: 15px;
+}
+
+.to_local_code::after,
+.from_local_code::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background: url(../images/icons/airplane_icon.svg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    left: -20px;
+}
+
+.cities_list li {
+    padding: 5px 0;
+}
+
+/* 탑승객 & 좌석 */
+
+.ticket_date_field,
+.passenger_seat_field {
+    width: 100%;
+    margin-right: 5px;
+}
+
+.passenger_seat_field {
+    position: relative;
+}
+
+.passenger_seat_field .passenger_seat_title,
+.ticket_date_field label {
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.passenger_seat_btn {
+    border: 1px solid var(--form);
+    height: 42px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+    padding: 0 15px;
+    background-color: var(--basic_wh);
+}
+
+.passenger_seat_btn span {
+    font-size: 15px;
+}
+
+.passenger_seat_btn:active,
+.passenger_seat_btn:hover {
+    border: 1px solid var(--primary_01);
+}
+
+/* 탑승객 & 좌석 모달 */
+.passenger_seat_modal {
+    display: none;
+    position: absolute;
+    background-color: var(--basic_wh);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 11;
+    top: 105%;
+    width: 500px;
+    right: 0;
+    border: 1px solid var(--line);
+}
+
+.passenger_box {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
+}
+
+.passenger_box .minus_img,
+.plus_img {
+    width: 24px;
+}
+
+.passenger_count {
+    padding: 0 12px;
+    font-size: 18px;
+    color: var(--basic_bl);
+}
+
+.passenger_count_btn {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.seat_radio {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* flight_banner - 항공권 배너 */
+
+.flight_banner_list {
+    display: flex;
+}
+.flight_banner_list li {
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+}
+
+.flight_banner_list img {
+    border-radius: 10px 10px 0 0;
+    opacity: 0.8;
+}
+.banner_list_img:hover > img {
+    transform: scale3d(1.5, 1.5, 1.5);
+    transition: all 0.3s;
+    opacity: 1;
+}
+
+.flight_banner_item {
+    margin: 32px 0;
+}
+
+.flight_banner_tit h3 {
+    padding-bottom: 8px;
+    font-weight: bold;
+}
+
+.flight_banner_list {
+    display: flex;
+}
+
+.flight_banner_list img {
+    border-radius: 10px 10px 0 0;
+}
+
+.flight_banner_list a {
+    margin-right: 16px;
+    border: 1px solid var(--form);
+    border-radius: 15px;
+    display: inline-block;
+}
+
+.flight_banner_list a:last-child {
+    margin-right: 0;
+}
+
+.flight_banner_list ul {
+    border-radius: 15px;
+}
+
+.flight_banner_list ul:last-child {
+    margin-right: 0;
+}
+
+.flight_content {
+    padding: 16px 12px;
+    line-height: 1.2;
+}
+
+.flight_content_tit {
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+.price_transfer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 8px;
+    align-items: end;
+}
+
+.price_transfer > span {
+    font-size: 14px;
+    color: var(--basic_09);
+}
+
+/* 항공권 공지사항 */
+
+.flight_notice {
+    margin: 30px 0;
+    padding-top: 30px;
+}
+
+.flight_notice_tit {
+    font-weight: bold;
+}
+
+.flight_notice td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin-top: 12px;
+}
+
+.flight_notice td span:nth-child(2) {
+    color: var(--basic_07);
+    font-size: 14px;
+}
+
+/* search flight - 최근 검색한 항공권 */
+
+.flight_search_bg {
+    background-color: var(--box_bg);
+    padding: 16px 0;
+}
+
+.flight_search_box {
+    display: inline-block;
+    background-color: var(--basic_wh);
+    border-radius: 10px;
+    padding: 12px;
+    position: relative;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.flight_search_close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.flight_search_tit > h5 {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.flight_search_sub_tit,
+.flight_search_sub_txt {
+    line-height: 1.6;
+    display: flex;
+}
+
+.transfer_label {
+    font-size: 12px;
+    padding: 2px 4px;
+    border: 1px solid var(--primary_02);
+    border-radius: 5px;
+    color: var(--primary_02);
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: inline-block;
+}
+
+.flight_search_sub_tit {
+    font-weight: bold;
+}
+
+.flight_search_sub_txt {
+    font-size: 14px;
+    color: var(--basic_07);
+}
+
+.flight_search_sub_txt > span:nth-child(1) {
+    position: relative;
+    padding-right: 16px;
+}
+
+.flight_search_sub_txt > span:nth-child(1)::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 14px;
+    background-color: var(--form);
+    top: 5px;
+    right: 7px;
+}
+
+.flight_search_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.flight_search_icon > img {
+    width: 30px;
+    height: 30px;
+}
+
+/*내 여행 페이지*/
+#my_travel_page {
+    height: 100%;
+    position: relative;
+}
+
+.my_travel_box {
+    display: flex;
+}
+
+.my_travel h2 {
+    margin-bottom: 12px;
+}
+
+.my_travel_menu {
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    width: 200px;
+    height: 170px;
+    margin-right: 20px;
+}
+
+#my_travel_page .tab_menu li a {
+    color: var(--basic_03);
+    width: 100%;
+    padding: 20px;
+}
+
+#my_travel_page .tab_menu li a.tab_active {
+    background-color: var(--box_bg);
+    color: var(--primary_02);
+    width: 100%;
+    padding: 20px;
+    font-weight: bold;
+    border-radius: 0;
+}
+
+.my_travel_tab_content {
+    width: 100%;
+}
+
+#my_travel_page .tab_menu li {
+    padding: 0 0;
+}
+
+.regions_list_item {
+    display: none;
+}
+
+.my_trip_item {
+    background-color: var(--basic_wh);
+    box-shadow: 0px 2px 5px 3px var(--line);
+    padding: 24px;
+    border-radius: 5px;
+    margin-bottom: 24px;
+    display: flex;
+}
+
+.my_trip_item .airline_icon_img {
+    padding: 7px;
+    width: 45px;
+    height: 45px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    margin-right: 8px;
+}
+
+.my_trip_item .trip_icon_img img {
+    width: 45px;
+    height: 45px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    margin-right: 8px;
+}
+
+.my_trip_item .my_trip_content {
+    width: 80%;
+    padding-right: 30px;
+}
+
+#canceled_trip .my_trip_item .my_trip_content, #last_trip .my_trip_item .my_trip_content {
+    width: 100%;
+    padding-right: 0;
+}
+
+.trip_year, .trip_day {
+    margin-bottom: 12px;
+}
+
+.trip_year {
+    font-weight: bold;
+}
+
+.trip_day {
+    display: inline-block;
+    font-size: 14px;
+    color: var(--basic_05);
+}
+
+.my_trip_list {
+    padding-left: 20px;
+    position: relative;
+    height: 100%;
+    border-left: 1px solid var(--form);
+}
+
+.my_trip_list::before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 30px;
+    background-color: var(--form);
+    top: 0;
+    left: -5px;
+}
+
+.my_trip_list::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 30px;
+    background-color: var(--form);
+    bottom: -5px;
+    left: -5px;
+}
+
+.my_trip_content_top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.my_trip_content_top li:nth-child(2) > a {
+    font-size: 14px;
+    color: var(--primary_02);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my_trip_content_mid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my_trip_content_tit {
+    line-height: 1.4;
+    display: flex;
+}
+
+.my_trip_content_tit > div > p:nth-child(1) {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.my_trip_content_tit > div > p:nth-child(2) {
+    font-size: 16px;
+    color: var(--basic_05);
+}
+
+.my_trip_content_btm {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--box_bg);
+    padding: 16px;
+    border-radius: 5px;
+    margin-top: 16px;
+    align-items: center;
+    text-align: center;
+}
+
+.my_trip_content_btm li {
+    line-height: 1.2;
+}
+
+.reservation_cancle {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    border-left: 1px solid var(--line);
+    margin-bottom: 8px;
+}
+
+.reservation_cancle > a {
+    display: block;
+}
+
+.reservation_cancle .reservation_cancle_btn {
+    padding: 12px;
+    background-color: var(--box_bg);
+    border-radius: 5px;
+    font-size: 16px;
+    display: inline-block;
+    white-space: nowrap;
+    border: 1px solid var(--form);
+}
+
+.my_trip_ticket_bg {
+    background: url("../images/ticket.svg") no-repeat;
+    background-size: cover;
+    background: url(../images/ticket.svg) no-repeat;
+    background-size: cover;
+    backgound-position: center;
+    width: 240px;
+    height: 104px;
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+}
+
+.trip_left {
+    position: absolute;
+    top: 36px;
+    left: 7px;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--primary_02);
+    letter-spacing: -3px;
+}
+
+.trip_right {
+    position: absolute;
+    top: 36px;
+    right: 75px;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--primary_02);
+    letter-spacing: -3px;
+}
+
+#last_trip .my_trip_content_tit div p:nth-child(2) {
+    font-size: 16px;
+    color: var(--basic_09);
+    text-align: right;
+}
+
+/*라벨 종류*/
+
+.before_payment_label {
+    margin-bottom: 16px;
+    display: inline-block;
+    background-color: var(--before_pay_bg);
+    color: var(--before_pay);
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid var(--before_pay);
+}
+
+.my_trip_count_label {
+    margin-bottom: 16px;
+    display: inline-block;
+    background-color: var(--basic_05);
+    color: var(--basic_wh);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cancle_payment_label {
+    margin-bottom: 16px;
+    display: inline-block;
+    background-color: var(--cancle_bg);
+    color: var(--before_pay);
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid var(--cancle);
+}
+
+.cancle_payment_label {
+    margin-bottom: 16px;
+    display: inline-block;
+    background-color: var(--cancle_bg);
+    color: var(--before_pay);
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid var(--cancle);
+}
+
+.complete_label {
+    margin-bottom: 16px;
+    display: inline-block;
+    background-color: var(--complete);
+    color: var(--basic_03);
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid var(--form);
+}
+
+/*여행 모달 */
+.my_trip_modal_area {
+    position: absolute;
+    bottom: 200px;
+    right: 0;
+    z-index: 111;
+}
+
+#trip_modal_btn, #modal_close_btn {
+    cursor: pointer;
+}
+
+#trip_modal_btn > img {
+    width: 65px;
+    height: 65px;
+}
+
+#trip_modal_area {
+    /*width: 500px;*/
+    /*height: 500px;*/
+    /*position: fixed;*/
+    /*bottom: 7%;*/
+    /*right: 0;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}
+
+.trip_modal_content {
+    position: absolute;
+    background-color: #ffffff;
+    width: 350px;
+    padding-bottom: 16px;
+    box-shadow: 2px 2px 5px var(--basic_09);
+    border-radius: 30px;
+    bottom: 80px;
+    right: 0;
+    z-index: 2;
+}
+
+#modal_close_btn {
+    display: inline-block;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+
+#trip_modal_area.hidden {
+    display: none;
+}
+
+.trip_answer_box {
+    display: flex;
+}
+
+.trip_modal_logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-bottom: 1px solid var(--line);
+}
+
+.trip_modal_logo > img {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+}
+
+.trip_modal_icon {
+    max-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background-color: var(--basic_wh);
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    width: 100%;
+    margin-right: 12px;
+}
+
+.trip_modal_icon > img {
+    max-width: 30px;
+}
+
+.trip_question_icon {
+    background-color: var(--basic_wh);
+    padding: 10px;
+    border-radius: 15px;
+    color: var(--primary_02);
+    border: 1px solid var(--primary_02);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+}
+
+/*.trip_question_icon:active {*/
+/*    background-color:var(--primary_02);*/
+/*    color: var(--basic_wh);*/
+/*}*/
+.trip_questions {
+    display: flex;
+    justify-content: end;
+    margin: 24px 0 16px 0;
+}
+.trip_schedule {
+    margin-top: 20px;
+    padding: 0 16px;
+}
+.trip_schedule_main {
+    text-align: center;
+}
+.trip_schedule_main > p {
+    padding: 4px 0;
+    color: var(--basic_07);
+}
+.trip_schedule_main > p > span {
+    color: var(--basic_bl);
+    font-weight: bold;
+}
+.trip_answer {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s ease-in-out; /* 여기서 0.5s는 애니메이션 지속 시간을 나타냅니다. 필요에 따라 조절하세요. */
+}
+
+.trip_question_icon > img {
+    width: 20px;
+    height: 20px;
+    padding-right: 5px;
+}
+
+.trip_answer_tit {
+    font-size: 14px;
+    color: var(--basic_07);
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.trip_answer_txt {
+    background-color: var(--box_bg);
+    border-radius: 15px;
+    padding: 16px;
+    line-height: 1.2;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.trip_answer_sub_tit {
+    display: block;
+    font-weight: bold;
+    padding: 12px 0 8px 0;
+}
+
+/*내 여행 페이지*/
+
+/* 항공권 검색 페이지 */
+.my_travel {
+    margin-top: 24px;
+}
+
+#flight_search_page .search_from_to_box {
+    background-color: var(--box_bg);
+    box-shadow: 0px 1px 6px 5px var(--form);
+    margin-bottom: 32px;
+}
+
+#flight_search_page .from_to_modal {
+    top: 25%;
+    left: 12%;
+}
+
+#flight_search_page .passenger_seat_modal {
+    top: 25%;
+    right: 12%;
+}
+
+.flight_search_cont .count_and_filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.flight_search_cont {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.flight_search_left {
+    width: 200px;
+    padding: 0 16px;
+    height: 100%;
+}
+
+.flight_search_right {
+    width: 70%;
+}
+
+.flight_detail_box {
+    padding-bottom: 12px;
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px solid var(--form);
+    margin-bottom: 12px;
+}
+
+.flight_detail_wrap {
+    position: relative;
+    padding: 12px 0;
+}
+
+.flight_detail_box li {
+    letter-spacing: -0.07em;
+    line-height: 21px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.flight_detail_box li:nth-child(3) {
+    color: var(--basic_05);
+    font-size: 14px;
+}
+
+.detail_more {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+.flight_detail_box.active .detail_arrow {
+    transform: rotate(180deg);
+}
+
+.flight_search_result.active .detail_arrow {
+    transform: rotate(180deg);
+}
+
+.flight_search_result.active .detail_more {
+    max-height: 100%;
+}
+
+.flight_detail_wrap .detail_arrow {
+    display: inline-block;
+    position: absolute;
+    height: 24px;
+    bottom: 0;
+    right: 0;
+    top: -2px;
+}
+
+.filter_item {
+    margin-bottom: 24px;
+}
+
+.filter_item li {
+    display: flex;
+    align-items: center;
+    line-height: 2;
+}
+
+.filter_item .check_box {
+    margin-right: 5px;
+}
+
+.flight_search_right .flight_detail_wrap {
+    background-color: var(--basic_wh);
+    box-shadow: 0 1px 10px 2px var(--form);
+    border-radius: 30px;
+    padding: 20px 20px 10px 20px;
+    margin-bottom: 32px;
+}
+
+.flight_search_right .flight_detail_box {
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.flight_search_right .flight_detail_wrap .detail_arrow {
+    right: 40%;
+    top: 2px;
+}
+
+.flight_search_right .flight_detail_price {
+    padding-left: 20px;
+    border-left: 1px solid var(--form);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.flight_search_right .flight_search_result {
+    width: 80%;
+    padding-right: 20px;
+}
+
+.flight_detail_wrap .detail_arrow {
+    display: inline-block;
+    position: absolute;
+    height: 24px;
+    bottom: 0;
+    right: 0;
+    top: -2px;
+}
+
+.flight_result_top,
+.flight_result_btm {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+}
+
+.flight_result_top > li,
+.flight_result_btm > li {
+    text-align: center;
+    padding: 0 5px;
+}
+
+.flight_detail_cont {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.airline_icon {
+    display: flex;
+    align-items: center;
+}
+
+.airline_icon_img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+.airline_arrow_icon {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.airline_time_taken {
+    padding: 0 25px;
+}
+
+.airline_time {
+    font-weight: 500;
+}
+
+.airline_time > span {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.airline_txt {
+    font-size: 14px;
+    color: var(--basic_09);
+    padding-top: 4px;
+}
+
+.remaining_seats {
+    font-size: 12px;
+    letter-spacing: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: var(--cancle);
+}
+
+.reservation_price {
+    padding: 12px;
+    border: 1px solid var(--primary_02);
+    border-radius: 5px;
+    display: inline-block;
+    color: var(--primary_02);
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+/* 항공권 검색 더보기 */
+
+.detail_more_area {
+    border-top: 1px solid var(--line);
+    padding: 16px 0;
+    margin-top: 16px;
+}
+
+.detail_more_btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+.detail_more_btn > span {
+    color: var(--primary_02);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.detail_more_tit {
+    background-color: var(--box_bg);
+    padding: 12px;
+}
+
+.detail_more_tit span {
+    font-weight: 500;
+}
+
+.detail_more_cont {
+    padding: 12px;
+    padding-top: 20px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+}
+
+.go_label {
+    color: var(--basic_wh);
+    padding: 4px;
+    background-color: var(--primary_02);
+    font-size: 14px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.from_label {
+    color: var(--primary_02);
+    padding: 4px;
+    background-color: var(--basic_wh);
+    font-size: 14px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 8px;
+    border: 1px solid var(--primary_02);
+}
+
+.detail_distance,
+.detail_distance > ul {
+    display: flex;
+}
+
+.detail_country_name {
+    padding-right: 50px;
+}
+
+.detail_country_name > span {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.detail_trip_area {
+    display: flex;
+}
+
+.detail_trip_date {
+    padding-right: 20px;
+}
+
+.detail_trip_cont {
+    position: relative;
+    padding-left: 20px;
+    border-left: 1px solid var(--form);
+    line-height: 1.5;
+}
+
+.detail_trip_cont > p:nth-child(2) {
+    font-size: 14px;
+    color: var(--basic_09);
+}
+
+.detail_trip_cont > p:nth-child(3) {
+    font-size: 14px;
+    color: var(--basic_07);
+    font-weight: 500;
+}
+
+.detail_trip_cont::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 30px;
+    top: 0;
+    left: -5px;
+    border: 1px solid var(--form);
+    background-color: var(--basic_wh);
+}
+
+.detail_trip_cont::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 30px;
+    bottom: 0;
+    left: -5px;
+    border: 1px solid var(--form);
+    background-color: var(--basic_wh);
+}
+
+.trip_waiting_time {
+    padding: 16px 0;
+    text-align: left;
+    color: var(--primary_01);
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 162px;
+}
+
+.detail_fee .detail_fee_tit {
+    margin-bottom: 8px;
+}
+
+.detail_fee_tit {
+    font-weight: bold;
+}
+
+.detail_total_fee {
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail_total_fee > li:nth-child(2) {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/*admin*/
+
+#admin {
+    height: 100%;
+}
+
+#admin main {
+    padding: 67px 20px 200px 20px;
+}
+
+#admin a.btn-primary {
+    display: inline-block;
+    line-height: 34px;
+    margin-left: 8px;
+}
+
+#admin .btn-primary {
+    background-color: var(--admin_01);
+    width: 150px;
+    height: 48px;
+    font-size: 18px;
+}
+
+#admin_sign_in_page .top_bar {
+    background-color: var(--admin_01);
+    color: var(--basic_wh);
+}
+
+#admin_sign_in_page .pwd_find {
+    text-align: right;
+}
+
+#admin .sign_in_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.admin_header {
+    background-color: var(--admin_01);
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.admin_header .header_menu li a, .admin_header .header_menu li {
+    color: var(--basic_wh);
+}
+
+.admin_header .top_bar {
+    background-color: var(--admin_01);
+}
+
+.admin_menu {
+    display: flex;
+}
+
+.admin_menu li {
+    padding: 0 15px;
+}
+
+.admin_menu > li > a {
+    color: var(--basic_wh);
+
+}
+
+.login_box {
+    width: 40%;
+}
+
+/*배너 목록*/
+
+
+/*공통*/
+#admin .nav-link:focus, #admin .nav-link:hover {
+    color: var(--admin_02);
+    font-weight: bold;
+}
+
+.admin_common_tit {
+    font-weight: bold;
+    margin: 16px 0;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--form);
+    display: flex;
+    align-items: center;
+}
+
+.admin_common_tit img {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+.common_table {
+    width: 100%;
+}
+
+.common_table thead {
+    background-color: var(--box_bg);
+}
+
+.common_table th {
+    padding: 12px 0;
+}
+
+.common_list_cont > tr, .common_list_cont > tr > td {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.common_list_cont tr td a {
+    font-size: 16px;
+    color: var(--basic_05);
+}
+
+.common_table tbody tr:hover {
+    background-color: var(--admin_02);
+
+}
+
+.admin_form_tit {
+    background-color: var(--box_bg);
+    padding: 16px;
+
+}
+
+.admin_form_tit h5 {
+    color: var(--admin_01);
+    font-weight: bold;
+}
+
+.admin_form_area {
+    padding: 32px;
+    border: 1px solid var(--line);
+}
+
+.admin_from_item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin_form_textfield {
+    width: 100%;
+    margin-right: 24px;
+    margin-bottom: 24px;
+}
+
+.admin_form_textfield:last-child {
+    margin-right: 0;
+}
+
+.admin_common_btn {
+    margin: 16px 0;
+    text-align: right;
+    display: flex;
+    justify-content: end;
+}
+
+.admin_form_textfield p {
+    margin-bottom: 8px;
+}
+
+.admin_form_textfield label {
+    color: var(--basic_05);
+}
+
+/*리셋*/
+#admin input {
+    color: var(--basic_bl);
+    height: 46px;
+}
+
+#admin input::placeholder {
+    color: var(--basic_09);
+}
+
+#admin input::-webkit-input-placeholder {
+    color: var(--basic_09);
+}
+
+#admin input:-ms-input-placeholder {
+    color: var(--basic_09);
+}
+
+.dropdown-item:hover {
+    color: var(--admin_01);
+    background-color: var(--admin_02);
+}
+
+.dropdown-menu show {
+    padding: 0;
+}
+
+#admin a.btn-outline-primary {
+    line-height: 34px;
+    font-size: 18px;
+}
+
+#admin .btn-outline-primary {
+    border: 1px solid var(--admin_01);
+    width: 150px;
+    height: 48px;
+    display: inline-block;
+}
+
+.admin_form_detail {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.admin_img {
+    width: 250px;
+}
+
+#admin .form-control {
+    line-height: 2;
+}
+
+#admin .list_pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+#admin .page-link {
+    position: relative;
+    display: block;
+    font-size: 16px;
+    color: var(--admin_01);
+    text-decoration: none;
+    background-color: var(--basic_wh);
+    border: 1px solid var(--admin_02);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    height: 33px;
+}
+
+#admin .page-link:hover {
+    z-index: 2;
+    color: var(--basic_wh);
+    background-color: var(--admin_01);
+    border-color: var(--line);
+}
+
+#admin .page-link:focus {
+    z-index: 3;
+    color: var(--basic_wh);
+    background-color: var(--admin_01);
+    outline: 0;
+    box-shadow: var(--admin_02);
+}
+
+#admin .admin_arrow_icon {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+/*쿠폰 관리 페이지*/
+#coupon_list_page .coupon_list_cont {
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--line);
+}
+
+.coupon_list_area {
+    margin-bottom: 32px;
+}
+
+.coupon_list_tit h5 {
+    font-weight: bold;
+    margin-bottom: 12px;
+
+}
+

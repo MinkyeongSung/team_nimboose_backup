@@ -1,0 +1,74 @@
+server:
+  servlet:
+    multipart:
+      max-file-size: 10GB
+      max-request-size: 10GB
+    encoding:
+      charset: utf-8
+      force: true
+  port: 8080
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://nimbus-db.c2yvmygbxfmn.ap-northeast-2.rds.amazonaws.com:3306/nimbusdb
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: metacoding
+    password: nimbus111!
+  sql:
+    init:
+      encoding: utf-8
+      username:
+      password:
+      mode: always
+      data-locations:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: xxwhite19@gmail.com
+    password: bwmd uxof njqv vtiy
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+      default_batch_fetch_size: 100
+    open-in-view: true
+    database-platform:
+  output:
+    ansi:
+      enabled: always
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    org.mybatis: DEBUG
+    '[org.hibernate.type]': TRACE
+    '[com.tenco.team_two_flight_ticket]' : INFO
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations:
+    - classpath:mapper/**.xml
+chatgpt:
+  api-key: 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
